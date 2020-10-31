@@ -1,24 +1,39 @@
 <template>
   <header>
-    <div class="header-content">
-      header
+    <div class="header-content container">
+      <span>Vou deter o Lord Sith com:</span>
+      <div class="ui icon input loading">
+        <input 
+          type="text" 
+          placeholder="Pesquisa..."
+          v-model="search"
+          @keypress="searchGiphy($event)"
+        >
+        <i class="search icon"></i>
+      </div>
     </div>
   </header> 
 </template>
 
 <script>
 import Modal from '@/components/helpers/Modal'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Header',
-  components: {
-    Modal
-  },
+
   data: () => ({
-
+    search: '' 
   }),
-  methods: {
 
+  methods: {
+    ...mapActions(['setList']),
+    searchGiphy(e) {
+      const { search } = this
+      if(e.key === 'Enter') {
+        this.setList(search)
+      }
+    }
   }
 }
 </script>

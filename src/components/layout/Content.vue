@@ -1,37 +1,42 @@
 <template>
-  <main>
+  <main class="container">
     <div class="content">
-      <!-- v-for="(item, index) in items" :key="index"  -->
-      <div class="ui grid container">
-        <div class="four wide column" v-for="(item, index) in items" :key="index">
+      <div class="ui stackable four column grid">
+        <div class="column" v-for="(item, index) in items" :key="index">
           <img :src='item.images.downsized_large.url'>
         </div>
       </div>
-      <button class="ui primary button">
-        Buscar
-      </button>
     </div>
   </main>
 </template>
 
 <script>
-import { getAllGiphys } from '@/services/giphy'
+import { getFooGiphys } from '@/services/giphy'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Content',
+
   data: () => ({
-    searchType: 'foo',
     items: []
   }),
+
   created() {
-    const { searchType } = this
-    const currentApiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
-    this.fetchGiphys(searchType, currentApiKey)
+    this.fetchGiphys()
   },
+
+  computed: {
+    ...mapState(['list'])
+  },
+
   methods: {
     async fetchGiphys(searchType, apiKey) {
+
+      const { list } = this
+      const currentApiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
+
       try {
-        const { data } = await getAllGiphys(searchType, apiKey)
+        const { data } = await getFooGiphys(list, currentApiKey)
         this.items = data
         console.log(data)
       } catch(error) {
@@ -40,15 +45,34 @@ export default {
         console.log('finally')
       }
     }
+  },
+
+  watch: {
+    'list': function() {
+      this.fetchGiphys()
+    }
   }
 }
 </script>
 
 <style lang="css" scoped>
-  .content .grid {
+  .content {
     padding: 100px 0;
   }
-  .content .grid .four img{
-    max-width: 200px;
+  .content .grid .column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content .grid .column img {
+    width: 200px;
+  }
+
+  /* responsive */
+
+  @media(max-width: 1200px) {
+    .content .grid .column img {
+      width: 100%;
+    }
   }
 </style>
