@@ -9,14 +9,28 @@
 </template>
 
 <script>
+import { getAllGiphys } from '@/services/giphy'
+
 export default {
   name: 'Content',
   data: () => ({
-  teste1: ''
+    searchType: 'foo'
   }),
+  created() {
+    const { searchType } = this
+    const currentApiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
+    this.fetchGiphys(searchType, currentApiKey)
+  },
   methods: {
-    _testFunc() {
-      this.teste1 = 'ALUUUU'
+    async fetchGiphys(searchType, apiKey) {
+      try {
+        const res = await getAllGiphys(searchType, apiKey)
+        console.log(res)
+      } catch(error) {
+        console.log(error)
+      } finally {
+        console.log('finally')
+      }
     }
   }
 }
