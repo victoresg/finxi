@@ -30,21 +30,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .tabs {
-    cursor: pointer;
-    h6 {
-      border: 1px #1d21242e solid;
-      padding: 1rem;
-    }
-    h6:nth-child(1) {
-      margin-bottom: -1px;
-    }
-    h6:nth-child(2) {
-      margin-bottom: 8px;
-    }
-    .list-item {
-      min-width: 10.1rem;
-    }
-  }
+<style lang="css">
+
 </style>

@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   header {
     display: flex;
     align-items: center;
@@ -56,37 +56,11 @@ export default {
     width: 100%;
     background-color: #42b983;
     height: 80px;
-    .header-content {
-      display: flex ;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      &-btn {
-        background-color: #42b983;
-        border-radius: 5px;
-        border: none;
-        color: #ffff; 
-        outline-style: none;
-        cursor: pointer;
-        &:active {
-          box-shadow: inset 0 0 1em #1d21249e, 0 0 1em #1d21243d;
-        }
-      }
-    }
-    a {
-      color: #ffff;
-    }
   }
-  @media(max-width: 768px) {
-    .header {
-      img {
-        width: 150px;
-      }
-      font-size: 12px;
-      button {
-        background-color: transparent;
-        white-space: nowrap;
-      }
-    }
+  header .header-content {
+    display: flex ;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 </style>

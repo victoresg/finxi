@@ -38,28 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .notes {
-    min-height: 100vh;
-    p {
-      position: relative;
-      border: 1px #00000047 solid;
-      box-shadow: 0 0 1em #0006;
-      padding: 60px 40px;
-      button {
-        color: #ffff;
-        font-weight: 900;
-        width: 2rem;
-        height: 2rem;
-        right: 10px;
-        top: 10px;
-        position: absolute;
-        border: 1px #ff0000 solid;
-        background-color: #ff000094;
-        outline-style: none;
-        cursor: pointer;
-      }
-    }
-  }
-</style>
