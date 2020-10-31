@@ -1,6 +1,11 @@
 <template>
   <main>
     <div class="content">
+      <div v-for="(item, index) in items" :key="index" >
+        <div>
+          <img :src='item.images.downsized_large.url'>
+        </div>
+      </div>
       <button class="ui primary button">
         Buscar
       </button>
@@ -14,7 +19,8 @@ import { getAllGiphys } from '@/services/giphy'
 export default {
   name: 'Content',
   data: () => ({
-    searchType: 'foo'
+    searchType: 'foo',
+    items: []
   }),
   created() {
     const { searchType } = this
@@ -24,8 +30,9 @@ export default {
   methods: {
     async fetchGiphys(searchType, apiKey) {
       try {
-        const res = await getAllGiphys(searchType, apiKey)
-        console.log(res)
+        const { data } = await getAllGiphys(searchType, apiKey)
+        this.items = data
+        console.log(data)
       } catch(error) {
         console.log(error)
       } finally {
@@ -36,6 +43,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 </style>

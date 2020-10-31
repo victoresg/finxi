@@ -16,7 +16,7 @@ export default {
 
 <style lang="css" scoped>
   .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: #42b983;
     width: 100%;
