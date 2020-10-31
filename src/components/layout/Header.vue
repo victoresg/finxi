@@ -55,4 +55,10 @@ export default {
     justify-content: space-between;
     width: 100%;
   }
+  header .header-content span {
+    text-shadow: 2px 2px #00000030;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 800;
+  }
 </style>
