@@ -32,17 +32,19 @@ export default {
   methods: {
     async fetchGiphys(searchType, apiKey) {
 
+      const { $loading } = this
+      const loader = $loading.show()
       const { list } = this
       const currentApiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
 
       try {
         const { data } = await getFooGiphys(list, currentApiKey)
         this.items = data
-        console.log(data)
+        loader.hide()
       } catch(error) {
         console.log(error)
       } finally {
-        console.log('finally')
+        loader.hide()
       }
     }
   },
@@ -57,7 +59,7 @@ export default {
 
 <style lang="css" scoped>
   main .content {
-    padding: 100px 0;
+    padding: 150px 0 200px 0;
   }
   main .content .grid .column {
     display: flex;

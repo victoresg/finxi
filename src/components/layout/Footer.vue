@@ -18,7 +18,7 @@ export default {
   footer {
     position: fixed;
     bottom: 0;
-    background-color: #1a93b2;
+    background-color: #730000;
     width: 100%;
   }
   footer .container {

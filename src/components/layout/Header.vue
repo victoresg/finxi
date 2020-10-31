@@ -2,14 +2,14 @@
   <header>
     <div class="header-content container">
       <span>Vou deter o Lord Sith com:</span>
-      <div class="ui icon input loading">
+      <div class="ui icon input">
         <input 
           type="text" 
           placeholder="Pesquisa..."
           v-model="search"
           @keypress="searchGiphy($event)"
         >
-        <i class="search icon"></i>
+        <i class="search icon" @click="searchGiphy('click')"></i>
       </div>
     </div>
   </header> 
@@ -23,13 +23,16 @@ export default {
   name: 'Header',
 
   data: () => ({
-    search: '' 
+    search: ''
   }),
 
   methods: {
     ...mapActions(['setList']),
     searchGiphy(e) {
       const { search } = this
+      if(e === 'click') {
+        this.setList(search)
+      }
       if(e.key === 'Enter') {
         this.setList(search)
       }
@@ -45,7 +48,7 @@ export default {
     align-items: center;
     padding: 0 220px;
     width: 100%;
-    background-color: #1a93b2;
+    background-color: #730000;
     height: 80px;
     z-index: 9;
   }
@@ -60,6 +63,12 @@ export default {
     font-size: 30px;
     color: #fff;
     font-weight: 800;
+  }
+  .ui.icon.input>i.icon {
+    cursor: pointer;
+  }
+  .ui.icon.input>i.icon:not(.link) {
+    pointer-events: initial;
   }
 
   /* responsive */
