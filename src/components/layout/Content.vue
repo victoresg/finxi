@@ -1,8 +1,9 @@
 <template>
   <main>
     <div class="content">
-      <div v-for="(item, index) in items" :key="index" >
-        <div>
+      <!-- v-for="(item, index) in items" :key="index"  -->
+      <div class="ui grid container">
+        <div class="four wide column" v-for="(item, index) in items" :key="index">
           <img :src='item.images.downsized_large.url'>
         </div>
       </div>
@@ -44,5 +45,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+  .content .grid {
+    padding: 100px 0;
+  }
+  .content .grid .four img{
+    max-width: 200px;
+  }
 </style>

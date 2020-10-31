@@ -25,12 +25,14 @@ export default {
 
 <style lang="css" scoped>
   header {
+    position: fixed;
     display: flex;
     align-items: center;
     padding: 0 220px;
     width: 100%;
-    background-color: #42b983;
+    background-color: #1a93b2;
     height: 80px;
+    z-index: 9;
   }
   header .header-content {
     display: flex ;
