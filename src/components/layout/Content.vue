@@ -56,22 +56,25 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  .content {
+  main .content {
     padding: 100px 0;
   }
-  .content .grid .column {
+  main .content .grid .column {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .content .grid .column img {
+  main .content .grid .column img {
     width: 200px;
   }
 
   /* responsive */
 
   @media(max-width: 1200px) {
-    .content .grid .column img {
+    main .content {
+      padding: 120px 0;
+    }
+    main .content .grid .column img {
       width: 100%;
     }
   }

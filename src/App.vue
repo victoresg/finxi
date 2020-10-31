@@ -18,13 +18,28 @@ export default {
 </script>
 
 <style>
-* { outline: none !important; }
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent;
-}
+  body {
+    background-image: url("assets/darth-vader.jpg");
+    background-attachment: fixed;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgb(0 0 0 / 73%);
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  * { outline: none !important; }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+    margin: 0;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
 </style>

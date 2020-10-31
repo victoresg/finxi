@@ -61,4 +61,23 @@ export default {
     color: #fff;
     font-weight: 800;
   }
+
+  /* responsive */
+
+  @media(max-width: 1000px) {
+    header {
+      padding: 50px 0;
+    }
+    header .header-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header .header-content span {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+  }
 </style>
