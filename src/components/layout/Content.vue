@@ -1,17 +1,14 @@
 <template>
   <main>
-    <div class="content p-3">
-     <div class="d-flex flex-column">
-       teste: {{ teste1 }}
-       <button @click="_testFunc">botão</button>
-     </div>
+    <div class="content">
+      <button class="ui primary button">
+        Buscar
+      </button>
     </div>
   </main>
 </template>
 
 <script>
-
-
 export default {
   name: 'Content',
   data: () => ({

@@ -1,18 +1,7 @@
 <template>
   <header>
-    <Modal :show="showModal" @close="closeModal" />
     <div class="header-content">
-      <span class="mr-4 mr-md-0">
-        <router-link to="/">
-          HOME
-        </router-link>
-      </span>
-      <button @click="setModal" class="header-content-btn mr-4 mr-md-0 p-md-2">NEW SMARTLIST</button>
-      <button @click="redirect" class="header-content-btn p-md-2">     
-        <router-link to="/notes">
-          NOTES
-        </router-link>
-      </button>
+      header
     </div>
   </header> 
 </template>
@@ -26,24 +15,10 @@ export default {
     Modal
   },
   data: () => ({
-    showModal: false,
-    selected: 't1',
-    items: [
-      { title: 'COMPANY DATA', name: 't1' },
-      { title: 'COMPANY TABLE', name: 't2' },
-      { title: 'COMPANY PAGE', name: 't3' }
-    ]
+
   }),
   methods: {
-    setModal () {
-      this.showModal = !this.showModal
-    },
-    closeModal () {
-      this.showModal = !this.showModal
-    },
-    redirect () {
-      this.$router.push('/notes')
-    }
+
   }
 }
 </script>
