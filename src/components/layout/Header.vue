@@ -1,10 +1,11 @@
 <template>
   <header>
     <div class="header-content container">
-      <span>Vou deter o Lord Sith com:</span>
-      <div class="ui icon input">
-        <input 
-          type="text" 
+      <span v-if="$route.path === '/'">Vou deter o Lord Sith com:</span>
+      <span class="details-message" v-else>Darth Vader foi derrotado com:</span>
+      <div v-if="$route.path === '/'" class="ui icon input">
+        <input
+          type="text"
           placeholder="Pesquisa..."
           v-model="search"
           @keypress="searchGiphy($event)"
@@ -63,6 +64,10 @@ export default {
     font-size: 30px;
     color: #fff;
     font-weight: 800;
+  }
+  header .header-content .details-message {
+    width: 100%;
+    text-align: center;
   }
   .ui.icon.input>i.icon {
     cursor: pointer;

@@ -2,17 +2,24 @@
   <main class="container">
     <div class="details">
       <div class="header-details" @click="goTo()">
-        <i class="angle left icon"></i>
+        <img src='../../assets/left-arrow.png' width="30">
         <span>Início</span>
       </div>
       <h1>{{ detailsGiphys.title }}</h1>
       <div class="content-details">
         <img :src='giphyImage' width="300">
         <div class="content-info">
-          Nome do usuário: {{ detailsGiphys.username }}
-          <div class="trending-datetime">
-            <span class="date">Data: {{ formatDate(detailsGiphys.trending_datetime) }}</span>
-            <span class="time">Hora: {{ formatHours(detailsGiphys.trending_datetime) }}</span>
+          Nome do usuário: {{ detailsGiphys.username ? detailsGiphys.username : empityField}}
+          <div class="import-datetime">
+            <span class="date">Data: {{ formatDate(detailsGiphys.import_datetime) }}</span>
+            <span class="time">Hora: {{ formatHours(detailsGiphys.import_datetime) }}</span>
+          </div>
+          <div class="content-link">
+            Achou pouco? 
+            <a :href="detailsGiphys.url" target="_blank">
+              clique aqui
+            </a>
+            para ver mais giphys {{ extractGiphyName(detailsGiphys.title) }}
           </div>
         </div>
       </div>
@@ -29,7 +36,8 @@ export default {
 
   data: () => ({
     detailsGiphys: {},
-    giphyImage: ''
+    giphyImage: '',
+    empityField: 'Nenhum registro'
   }),
 
   created() {
@@ -61,10 +69,16 @@ export default {
       })
     },
     formatDate (date) {
+      if(date === undefined || date === '0000-00-00 00:00:00') return this.empityField
       return formatDate(date)
     },
     formatHours (date) {
+      if(date === undefined || date === '0000-00-00 00:00:00') return this.empityField
       return formatHours(date)
+    },
+    extractGiphyName(name) {
+      if(name === undefined) return this.empityField
+      return name.split('GIF')[0]
     }
   }
 }
@@ -91,6 +105,9 @@ export default {
   .details .header-details span {
     font-size: 30px;
   }
+  .details .header-details img {
+    margin-right: 1rem;
+  }
   .details .header-details .icon {
     display: flex;
     justify-content: center;
@@ -114,7 +131,11 @@ export default {
     flex-direction: column;
     align-items: flex-start;
   }
-  .details .content-details .content-info .trending-datetime {
+  .details .content-details .content-info a {
+    color: #bdb81d;
+    outline: none;
+  }
+  .details .content-details .content-info .import-datetime {
     display: flex;
     flex-direction: column;
   }
@@ -122,6 +143,10 @@ export default {
   /* responsiive */
 
   @media(max-width: 768px) {
+    .details h1  {
+      font-size: 25px;
+      margin-top: 2rem;
+    }
     .details .content-details img {
       margin-right: 0;
     }
@@ -130,6 +155,9 @@ export default {
     }
     .details .content-details .content-info {
       align-items: center;
+    }
+    .details .content-details .content-info .content-link {
+      text-align: center;
     }
   }
 </style>
