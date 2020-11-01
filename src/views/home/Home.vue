@@ -29,7 +29,7 @@
 
 <script>
 import { getFooGiphys } from '@/services/giphy'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -48,7 +48,7 @@ export default {
   },
 
   methods: {
-    async fetchGiphys(searchType, apiKey) {
+    async fetchGiphys() {
       const { $loading, list } = this
       const loader = $loading.show()
       try {
@@ -56,7 +56,7 @@ export default {
         this.items = data
         loader.hide()
       } catch(error) {
-        console.log(error)
+        // console.log(error)
       } finally {
         loader.hide()
       }

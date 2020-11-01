@@ -39,7 +39,6 @@ export default {
     ...mapActions(['setList']),
 
     searchGiphy(e) {
-      console.log('1')
       if (this.$v.$invalid) return
       const { search } = this
       if(e === 'click') {

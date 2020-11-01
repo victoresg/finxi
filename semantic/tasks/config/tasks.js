@@ -108,7 +108,7 @@ module.exports = {
             }
           }
           else {
-            console.log(error);
+            // console.log(error);
           }
           this.emit('end');
         }

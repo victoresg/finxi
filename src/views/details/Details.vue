@@ -44,7 +44,7 @@ export default {
 
   created() {
     const { $route, getDetailsGiphy } = this
-    getDetailsGiphy(this.$route.query._id)
+    getDetailsGiphy($route.query._id)
   },
 
   methods: {
@@ -54,12 +54,11 @@ export default {
       try {
         const { data } = await getGiphysById(id)
         this.detailsGiphys = data
-        console.log(data)
         const { images: { downsized_large } } = data
         this.giphyImage = downsized_large.url
         loader.hide()
       } catch(error) {
-        console.log(error)
+        // console.log(error)
       }
     },
 
