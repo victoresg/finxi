@@ -5,8 +5,8 @@
         <i class="angle left icon"></i>
         <span>Início</span>
       </div>
-      <h1>{{ objectDetails.title }}</h1>
-      <img :src='objectDetails.images.downsized_large.url'>
+      <h1>{{ detailsGiphys.title }}</h1>
+      <img :src='giphyImage'>
     </div>
   </main>
 </template>
@@ -18,22 +18,24 @@ export default {
   name: 'Details',
 
   data: () => ({
-    objectDetails: {}
+    detailsGiphys: {},
+    giphyImage: ''
   }),
 
   created() {
-    const { $route, detailsGiphy } = this
-    detailsGiphy(this.$route.query._id)
+    const { $route, getDetailsGiphy } = this
+    getDetailsGiphy(this.$route.query._id)
   },
 
   methods: {
-    async detailsGiphy(id) {
+    async getDetailsGiphy(id) {
       const { $loading } = this
       const loader = $loading.show()
       try {
         const { data } = await getGiphysById(id)
-        console.log({data})
-        this.objectDetails = data 
+        this.detailsGiphys = data
+        const { images: { downsized_large } } = data
+        this.giphyImage = downsized_large.url
         loader.hide()
       } catch(error) {
         console.log(error)
@@ -70,6 +72,11 @@ export default {
   }
   .details .header-details span {
     font-size: 30px;
+  }
+  .details .header-details .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .details h1 {
     margin-bottom: 2rem;
