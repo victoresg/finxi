@@ -73,7 +73,7 @@ export default {
 
   /* responsive */
 
-  @media(max-width: 1000px) {
+  @media(max-width: 1200px) {
     header {
       padding: 50px 0;
     }

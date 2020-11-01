@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Content from '@/components/layout/Content'
+import Home from './views/home/Home'
+import Details from './views/details/Details'
 
 Vue.use (Router)
 
@@ -9,8 +10,13 @@ export default new Router ({
     routes: [
       {
         path: '/',
-        name: 'Content',
-        component: Content
+        name: 'Home',
+        component: Home
+      },
+      {
+        path: '/detalhes',
+        name: 'Details',
+        component: Details
       }
     ]
   })

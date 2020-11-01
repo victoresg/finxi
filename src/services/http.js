@@ -14,7 +14,6 @@ http.interceptors.request.use(requestConfig => {
 http.interceptors.response.use(
   response => response,
   error => {
-    const { status } = error.response
     return Promise.reject(error)
   }
 )
