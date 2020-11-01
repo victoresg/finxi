@@ -2,9 +2,18 @@
   <main class="container">
     <div class="home">
       <div v-if="items.length > 1" class="ui stackable four column grid">
-        <div class="column" v-for="({ id, images: { downsized_large: { url } } }, index) in items" :key="index">
+        <div class="column" v-for="({ id, show, images: { downsized_large: { url } } }, index) in items" :key="index">
           <div class="card" @click="goTo(id)">
-            <img :src='url'>
+            <img
+              v-if="show"
+              :src='url'
+              @error="hideImgError()"
+            >
+            <img
+              v-else
+              src='../../assets/not-found.png' 
+              width="150"
+            >
           </div>
         </div>
       </div>
@@ -42,7 +51,8 @@ export default {
       const loader = $loading.show()
       try {
         const { data } = await getFooGiphys(list)
-        this.items = data
+        this.items = data.map(e => ({...e, show: true})) 
+        console.log(this.items)
         loader.hide()
       } catch(error) {
         console.log(error)
@@ -57,6 +67,10 @@ export default {
         name: 'Details',
         query: { _id: id }
       })
+    },
+
+    hideImgError (index) {
+      this.items[index].show = false
     }
   },
 
@@ -79,8 +93,15 @@ export default {
   }
   main .home .grid .column .card {
     cursor: pointer;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0000005c;
   }
   main .home .grid .column .card img {
+    padding: 25px;
     width: 200px;
   }
   main .home .no-results {
@@ -118,8 +139,8 @@ export default {
       width: 100%;
     }
     @media(max-width: 768px) {
-      main .home .no-results {
-        font-size: 15px !important;
+      main .home .no-results p {
+        font-size: 15px;
       }
     }
   }

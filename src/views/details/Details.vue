@@ -2,8 +2,10 @@
   <main class="container">
     <div class="details">
       <div class="header-details" @click="goTo()">
-        <img src='../../assets/left-arrow.png' width="30">
-        <span>Início</span>
+        <div class="pointer">
+          <img src='../../assets/left-arrow.png' width="30">
+          <span>Início</span>
+        </div>
       </div>
       <h1>{{ detailsGiphys.title }}</h1>
       <div class="content-details">
@@ -15,7 +17,7 @@
             <span class="time">Hora: {{ formatHours(detailsGiphys.import_datetime) }}</span>
           </div>
           <div class="content-link">
-            Achou pouco? 
+            Achou maneiro? 
             <a :href="detailsGiphys.url" target="_blank">
               clique aqui
             </a>
@@ -62,20 +64,24 @@ export default {
         console.log(error)
       }
     },
+
     goTo() {
       const { $router } = this
       $router.push({
         name: 'Home'
       })
     },
+
     formatDate (date) {
       if(date === undefined || date === '0000-00-00 00:00:00') return this.empityField
       return formatDate(date)
     },
+
     formatHours (date) {
       if(date === undefined || date === '0000-00-00 00:00:00') return this.empityField
       return formatHours(date)
     },
+    
     extractGiphyName(name) {
       if(name === undefined) return this.empityField
       return name.split('GIF')[0]
@@ -96,11 +102,14 @@ export default {
     font-size: 20px;
   }
   .details .header-details {
+    width: 100%;
+  }
+  .details .header-details .pointer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
-    width: 100%;
+    max-width: 10%;
   }
   .details .header-details span {
     font-size: 30px;
@@ -114,7 +123,7 @@ export default {
     align-items: center;
   }
   .details h1 {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
   }
   .details .date-time {
     font-size: 30px;
@@ -146,6 +155,7 @@ export default {
     .details h1  {
       font-size: 25px;
       margin-top: 2rem;
+      text-align: center;
     }
     .details .content-details img {
       margin-right: 0;

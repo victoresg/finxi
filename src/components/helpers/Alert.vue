@@ -38,4 +38,13 @@ export default {
   .span-component span {
     position: absolute;
   }
+
+  /* responsivo */
+
+  @media(max-width: 768px) {
+    .span-component span {
+      white-space: nowrap;
+      left: 0;
+    }
+  }
 </style>
