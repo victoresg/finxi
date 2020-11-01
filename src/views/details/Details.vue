@@ -6,13 +6,23 @@
         <span>Início</span>
       </div>
       <h1>{{ detailsGiphys.title }}</h1>
-      <img :src='giphyImage'>
+      <div class="content-details">
+        <img :src='giphyImage' width="300">
+        <div class="content-info">
+          Nome do usuário: {{ detailsGiphys.username }}
+          <div class="trending-datetime">
+            <span class="date">Data: {{ formatDate(detailsGiphys.trending_datetime) }}</span>
+            <span class="time">Hora: {{ formatHours(detailsGiphys.trending_datetime) }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
 
 <script>
 import { getGiphysById } from '@/services/giphy'
+import { formatDate, formatHours } from '@/helpers/date'
 
 export default {
   name: 'Details',
@@ -34,6 +44,7 @@ export default {
       try {
         const { data } = await getGiphysById(id)
         this.detailsGiphys = data
+        console.log(data)
         const { images: { downsized_large } } = data
         this.giphyImage = downsized_large.url
         loader.hide()
@@ -48,6 +59,12 @@ export default {
       $router.push({
         name: 'Home'
       })
+    },
+    formatDate (date) {
+      return formatDate(date)
+    },
+    formatHours (date) {
+      return formatHours(date)
     }
   }
 }
@@ -62,6 +79,7 @@ export default {
     align-items: center;
     flex-direction: column;
     padding: 150px 0;
+    font-size: 20px;
   }
   .details .header-details {
     display: flex;
@@ -80,5 +98,38 @@ export default {
   }
   .details h1 {
     margin-bottom: 2rem;
+  }
+  .details .date-time {
+    font-size: 30px;
+  }
+  .details .content-details {
+    display: flex;
+  }
+  .details .content-details img {
+    margin-right: 1rem;
+  }
+  .details .content-details .content-info {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .details .content-details .content-info .trending-datetime {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* responsiive */
+
+  @media(max-width: 768px) {
+    .details .content-details img {
+      margin-right: 0;
+    }
+    .details .content-details {
+      flex-direction: column;
+    }
+    .details .content-details .content-info {
+      align-items: center;
+    }
   }
 </style>
