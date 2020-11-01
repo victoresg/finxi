@@ -7,9 +7,12 @@
         <input
           type="text"
           placeholder="Pesquisa..."
+          :class="$v.search.$dirty && $v.search.$invalid ? 'is-invalid' : ''"
           v-model="search"
           @keypress="searchGiphy($event)"
+          @focusout="$v.search.$touch()"
         >
+        <Alert :v="$v.search" />
         <i class="search icon" @click="searchGiphy('click')"></i>
       </div>
     </div>
@@ -17,11 +20,16 @@
 </template>
 
 <script>
-import Modal from '@/components/helpers/Modal'
+import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
+import Alert from '@/components/helpers/Alert'
 
 export default {
   name: 'Header',
+
+  components: {
+    Alert
+  },
 
   data: () => ({
     search: ''
@@ -30,12 +38,22 @@ export default {
   methods: {
     ...mapActions(['setList']),
     searchGiphy(e) {
+      console.log('1')
+      if (this.$v.$invalid) return
       const { search } = this
       if(e === 'click') {
         this.setList(search)
       }
       if(e.key === 'Enter') {
         this.setList(search)
+      }
+    }
+  },
+
+  validations () {
+    return {
+      search: {
+        required
       }
     }
   }
@@ -74,6 +92,14 @@ export default {
   }
   .ui.icon.input>i.icon:not(.link) {
     pointer-events: initial;
+  }
+  header .header-content .ui {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  header .header-content .ui .is-invalid {
+    border: 2px solid #bdb81d;
   }
 
   /* responsive */

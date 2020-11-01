@@ -30,5 +30,12 @@ export default {
 </script>
 
 <style lang="css">
-
+  .span-component {
+    font-size: 12px;
+    color: #bdb81d;
+    width: 100%;
+  }
+  .span-component span {
+    position: absolute;
+  }
 </style>
