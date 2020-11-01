@@ -55,11 +55,11 @@ export default {
         console.log(data)
         const { images: { downsized_large } } = data
         this.giphyImage = downsized_large.url
-        loader.hide()
+        setTimeout(() => {
+          loader.hide()
+        }, 1000)
       } catch(error) {
         console.log(error)
-      } finally {
-        loader.hide()
       }
     },
     goTo() {
