@@ -1,7 +1,12 @@
 <template>
   <main class="container">
-    <div class="content">
-        olá {{ objectDetails }}
+    <div class="details">
+      <div class="header-details" @click="goTo()">
+        <i class="angle left icon"></i>
+        <span>Início</span>
+      </div>
+      <h1>{{ objectDetails.title }}</h1>
+      <img :src='objectDetails.images.downsized_large.url'>
     </div>
   </main>
 </template>
@@ -13,7 +18,7 @@ export default {
   name: 'Details',
 
   data: () => ({
-    objectDetails: []
+    objectDetails: {}
   }),
 
   created() {
@@ -27,7 +32,7 @@ export default {
       const loader = $loading.show()
       try {
         const { data } = await getGiphysById(id)
-        console.log(data)
+        console.log({data})
         this.objectDetails = data 
         loader.hide()
       } catch(error) {
@@ -35,18 +40,38 @@ export default {
       } finally {
         loader.hide()
       }
+    },
+    goTo() {
+      const { $router } = this
+      $router.push({
+        name: 'Home'
+      })
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
-  .content {
+  .details {
     color: #fff;
     font-size: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 200px 0;
+    flex-direction: column;
+    padding: 150px 0;
+  }
+  .details .header-details {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  .details .header-details span {
+    font-size: 30px;
+  }
+  .details h1 {
+    margin-bottom: 2rem;
   }
 </style>

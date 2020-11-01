@@ -1,9 +1,9 @@
 <template>
   <main class="container">
-    <div class="content">
+    <div class="home">
       <div class="ui stackable four column grid">
         <div class="column" v-for="({ id, images: { downsized_large: { url } } }, index) in items" :key="index">
-          <div class="card" @click="redirectForDetails(id)">
+          <div class="card" @click="goTo(id)">
             <img :src='url'>
           </div>
         </div>
@@ -17,7 +17,7 @@ import { getFooGiphys } from '@/services/giphy'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'Content',
+  name: 'Home',
 
   data: () => ({
     items: []
@@ -46,7 +46,7 @@ export default {
       }
     },
 
-    redirectForDetails(id) {
+    goTo(id) {
       const { $router } = this
       $router.push({
         name: 'Details',
@@ -64,28 +64,28 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  main .content {
+  main .home {
     padding: 150px 0 200px 0;
   }
-  main .content .grid .column {
+  main .home .grid .column {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  main .content .grid .column .card {
+  main .home .grid .column .card {
     cursor: pointer;
   }
-  main .content .grid .column .card img {
+  main .home .grid .column .card img {
     width: 200px;
   }
 
   /* responsive */
 
   @media(max-width: 1200px) {
-    main .content {
+    main .home {
       padding: 120px 0;
     }
-    main .content .grid .column .card img {
+    main .home .grid .column .card img {
       width: 100%;
     }
   }
