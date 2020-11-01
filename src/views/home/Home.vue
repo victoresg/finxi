@@ -1,12 +1,17 @@
 <template>
   <main class="container">
     <div class="home">
-      <div class="ui stackable four column grid">
+      <div v-if="items.length > 1" class="ui stackable four column grid">
         <div class="column" v-for="({ id, images: { downsized_large: { url } } }, index) in items" :key="index">
           <div class="card" @click="goTo(id)">
             <img :src='url'>
           </div>
         </div>
+      </div>
+      <div v-else class="no-results">
+        <p>
+          Nenhum resultado obtido com "{{ list }}"!
+        </p>
       </div>
     </div>
   </main>
@@ -78,6 +83,30 @@ export default {
   main .home .grid .column .card img {
     width: 200px;
   }
+  main .home .no-results {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+  }
+  main .home .no-results p {
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    word-break: break-word;
+    padding: 5px;
+    display: -webkit-box;
+    max-width: 400px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 2.8rem;
+  }
 
   /* responsive */
 
@@ -87,6 +116,11 @@ export default {
     }
     main .home .grid .column .card img {
       width: 100%;
+    }
+    @media(max-width: 768px) {
+      main .home .no-results {
+        font-size: 15px !important;
+      }
     }
   }
 </style>

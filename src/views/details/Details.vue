@@ -19,7 +19,7 @@
             <a :href="detailsGiphys.url" target="_blank">
               clique aqui
             </a>
-            para ver mais giphys {{ extractGiphyName(detailsGiphys.title) }}
+            para ver mais giphys {{ extractGiphyName(detailsGiphys.title) }}.
           </div>
         </div>
       </div>
@@ -151,6 +151,7 @@ export default {
       margin-right: 0;
     }
     .details .content-details {
+      align-items: center;
       flex-direction: column;
     }
     .details .content-details .content-info {
