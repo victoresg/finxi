@@ -37,7 +37,7 @@ export default {
 
   methods: {
     ...mapActions(['setList']),
-    
+
     searchGiphy(e) {
       console.log('1')
       if (this.$v.$invalid) return
@@ -69,7 +69,7 @@ export default {
     padding: 20px 220px;
     width: 100%;
     background-color: #730000;
-    z-index: 9;
+    z-index: 99;
   }
   header .header-content {
     display: flex ;

@@ -18,6 +18,7 @@ export default {
     bottom: 0;
     background-color: #730000;
     width: 100%;
+    z-index: 99;
   }
   footer .container {
     display: flex;

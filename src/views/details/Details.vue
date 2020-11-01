@@ -57,9 +57,7 @@ export default {
         console.log(data)
         const { images: { downsized_large } } = data
         this.giphyImage = downsized_large.url
-        setTimeout(() => {
-          loader.hide()
-        }, 1000)
+        loader.hide()
       } catch(error) {
         console.log(error)
       }
@@ -81,7 +79,7 @@ export default {
       if(date === undefined || date === '0000-00-00 00:00:00') return this.empityField
       return formatHours(date)
     },
-    
+
     extractGiphyName(name) {
       if(name === undefined) return this.empityField
       return name.split('GIF')[0]

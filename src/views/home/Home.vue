@@ -5,14 +5,15 @@
         <div class="column" v-for="({ id, show, images: { downsized_large: { url } } }, index) in items" :key="index">
           <div class="card" @click="goTo(id)">
             <img
-              v-if="show"
-              :src='url'
-              @error="hideImgError()"
+              v-if="notFound"
+              class="not-found"
+              src='../../assets/not-found.png' 
+              width="150"
             >
             <img
               v-else
-              src='../../assets/not-found.png' 
-              width="150"
+              :src='url'
+              @error="hideImgError(index)"
             >
           </div>
         </div>
@@ -34,7 +35,8 @@ export default {
   name: 'Home',
 
   data: () => ({
-    items: []
+    items: [],
+    notFound: false
   }),
 
   created() {
@@ -51,8 +53,7 @@ export default {
       const loader = $loading.show()
       try {
         const { data } = await getFooGiphys(list)
-        this.items = data.map(e => ({...e, show: true})) 
-        console.log(this.items)
+        this.items = data
         loader.hide()
       } catch(error) {
         console.log(error)
@@ -69,8 +70,8 @@ export default {
       })
     },
 
-    hideImgError (index) {
-      this.items[index].show = false
+    hideImgError () {
+      this.notFound = true
     }
   },
 
@@ -100,9 +101,27 @@ export default {
     align-items: center;
     background-color: #0000005c;
   }
+  main .home .grid .column .card .not-found {
+    z-index: 9;
+  }
+  main .home .grid .column .card::before {
+    content: "loading...";
+    font-size: 15px;
+    font-weight: 900;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   main .home .grid .column .card img {
     padding: 25px;
     width: 200px;
+    z-index: 9;
   }
   main .home .no-results {
     position: absolute;
