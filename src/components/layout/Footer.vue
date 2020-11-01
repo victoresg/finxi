@@ -1,9 +1,7 @@
 <template>
   <footer>
     <div class="container">
-      <img src='../../assets/darth-vader-footer.png' width="70">
       <img src='../../assets/star-wars-logo.png' width="150">
-      <img src='../../assets/luke.png' width="40">
     </div>
   </footer>
 </template>
@@ -23,7 +21,7 @@ export default {
   }
   footer .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px 15px;
   }
@@ -31,7 +29,7 @@ export default {
   /* responsive */
 
   @media(max-width: 768px) {
-    footer .container img:nth-of-type(2) {
+    footer .container img {
       width: 100px;
     }
   }

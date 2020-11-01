@@ -2,8 +2,10 @@
   <main class="container">
     <div class="content">
       <div class="ui stackable four column grid">
-        <div class="column" v-for="(item, index) in items" :key="index">
-          <img :src='item.images.downsized_large.url'>
+        <div class="column" v-for="({ id, images: { downsized_large: { url } } }, index) in items" :key="index">
+          <div class="card" @click="redirectForDetails(id)">
+            <img :src='url'>
+          </div>
         </div>
       </div>
     </div>
@@ -31,14 +33,10 @@ export default {
 
   methods: {
     async fetchGiphys(searchType, apiKey) {
-
-      const { $loading } = this
+      const { $loading, list } = this
       const loader = $loading.show()
-      const { list } = this
-      const currentApiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
-
       try {
-        const { data } = await getFooGiphys(list, currentApiKey)
+        const { data } = await getFooGiphys(list)
         this.items = data
         loader.hide()
       } catch(error) {
@@ -46,6 +44,14 @@ export default {
       } finally {
         loader.hide()
       }
+    },
+
+    redirectForDetails(id) {
+      const { $router } = this
+      $router.push({
+        name: 'Details',
+        query: { _id: id }
+      })
     }
   },
 
@@ -66,7 +72,10 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  main .content .grid .column img {
+  main .content .grid .column .card {
+    cursor: pointer;
+  }
+  main .content .grid .column .card img {
     width: 200px;
   }
 
@@ -76,7 +85,7 @@ export default {
     main .content {
       padding: 120px 0;
     }
-    main .content .grid .column img {
+    main .content .grid .column .card img {
       width: 100%;
     }
   }

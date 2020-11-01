@@ -1,6 +1,8 @@
 import http from '../http'
 
-const getFooGiphys = async (parameter, apiKey) => {
+const apiKey = 'TtLIWxlcNtvlFm0s0ufFy2SpK0fWsWfg'
+
+const getFooGiphys = async (parameter) => {
   try {
     const res = await http.get(`gifs/search?q=${parameter}&api_key=${apiKey}`)
     return res.data
@@ -9,6 +11,16 @@ const getFooGiphys = async (parameter, apiKey) => {
   }
 }
 
+const getGiphysById = async (id) => {
+  try {
+    const res = await http.get(`gifs/${id}?api_key=${apiKey}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export {
-  getFooGiphys
+  getFooGiphys,
+  getGiphysById
 }
