@@ -21,7 +21,7 @@ export default {
   computed: {
     currentError () {
       const { v } = this
-      
+
       return formErrors(v)
     }
   }
@@ -40,7 +40,7 @@ export default {
 
   /* responsivo */
 
-  @media(max-width: 768px) {
+  @media(max-width: 1200px) {
     .span-component span {
       white-space: nowrap;
       left: 0;
