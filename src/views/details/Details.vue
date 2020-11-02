@@ -62,6 +62,8 @@ export default {
         loader.hide()
       } catch(error) {
         // console.log(error)
+      } finally {
+        loader.hide()
       }
     },
 

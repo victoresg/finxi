@@ -41,7 +41,9 @@ export default {
   }),
 
   created() {
-    this.fetchGiphys()
+    const { fetchGiphys } = this
+
+    fetchGiphys()
   },
 
   computed: {
