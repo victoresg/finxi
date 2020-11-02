@@ -2,6 +2,6 @@
 
 ### Compiles and hot-reloads project
 ```
-docker-compose
+docker-compose up
 
 ```
