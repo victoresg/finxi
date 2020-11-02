@@ -69,7 +69,8 @@ export default {
     },
 
     goTo(id) {
-      const { $router } = this
+      const { $router, $v } = this
+      
       $router.push({
         name: 'Details',
         query: { _id: id }

@@ -24,11 +24,15 @@ export default {
 
 <style lang="css">
   .back-view {
+    position: relative;
     width: 100%;
-    margin: 10px 0;
+    margin: 40px 0;
   }
   .back-view .pointer {
-    display: inline-block;
+    position: absolute;
     cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 </style>

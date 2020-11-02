@@ -8,17 +8,18 @@
       >
         {{ title }}
       </span>
-      <div v-if="$route.path === '/'" class="ui icon input">
-        <input
-          type="text"
-          placeholder="Pesquisar..."
-          :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
-          v-model="model.search"
-          @keypress="searchGiphy($event)"
-          @focusout="$v.model.search.$touch()"
-        >
-        <Alert :v="$v.model.search" />
-        <i class="search icon" @click="searchGiphy('click')"></i>
+      <div v-if="$route.path === '/'">
+        <div class="ui icon input">
+          <input
+            type="text"
+            placeholder="Pesquisar..."
+            :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
+            v-model="model.search"
+            @keypress="searchGiphy($event)"
+          >
+          <Alert :v="$v.model.search" />
+          <i class="search icon" @click="searchGiphy('click')"></i>
+        </div>
       </div>
     </div>
   </header> 
@@ -85,7 +86,10 @@ export default {
 
   watch: {
     '$route.path': function() {
-      this.headerTitle(this.$route.path)
+      const { $v, headerTitle } = this
+
+      $v.$reset()
+      headerTitle(this.$route.path)
     }
   },
 
