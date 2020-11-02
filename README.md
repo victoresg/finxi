@@ -2,28 +2,16 @@
 
 ## Project setup
 ```
-yarn install
+yarn
+
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads project
 ```
-yarn run serve
+docker-compose
+
 ```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Tools needed to run the project
+yarn: [Configuration Reference](https://yarnpkg.com/getting-started).
+docker-compose: [Configuration Reference](https://docs.docker.com/compose/install/).
