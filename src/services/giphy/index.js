@@ -20,7 +20,38 @@ const getGiphysById = async (id) => {
   }
 }
 
+const saveGiphys = async (id) => {
+  try {
+    const res = await http.post(`gifs-create/${id}?api_key=${apiKey}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const updateGiphys = async (id) => {
+  try {
+    const res = await http.put(`gifs-update/${id}?api_key=${apiKey}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const deleteGiphys = async (id) => {
+  try {
+    const res = await http.delete(`gifs-delete/${id}?api_key=${apiKey}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+
 export {
   getFooGiphys,
-  getGiphysById
+  getGiphysById,
+  updateGiphys,
+  deleteGiphys,
+  saveGiphys
 }

@@ -1,40 +1,104 @@
 <template>
   <header>
     <div class="header-content container">
-      <span>Vou deter o Lord Sith com:</span>
-      <div class="ui icon input">
-        <input 
-          type="text" 
-          placeholder="Pesquisa..."
-          v-model="search"
-          @keypress="searchGiphy($event)"
-        >
-        <i class="search icon" @click="searchGiphy('click')"></i>
+      <span 
+        :class="$route.path === '/detalhes' 
+          ? 'details-message' 
+          : '' "
+      >
+        {{ title }}
+      </span>
+      <div v-if="$route.path === '/'">
+        <div class="ui icon input">
+          <input
+            type="text"
+            placeholder="Pesquisar..."
+            :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
+            v-model="model.search"
+            @keypress="searchGiphy($event)"
+          >
+          <Alert :v="$v.model.search" />
+          <i class="search icon" @click="searchGiphy('click')"></i>
+        </div>
       </div>
     </div>
   </header> 
 </template>
 
 <script>
-import Modal from '@/components/helpers/Modal'
-import { mapActions } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+import { mapActions, mapState } from 'vuex'
+import Alert from '@/components/helpers/Alert'
 
 export default {
   name: 'Header',
 
+  components: {
+    Alert
+  },
+
   data: () => ({
-    search: ''
+    title: 'Vou deter o Lord Sith com:',
+    model: {
+      search: ''
+    }
   }),
+
+  computed: {
+    ...mapState(['list'])
+  },
 
   methods: {
     ...mapActions(['setList']),
+
     searchGiphy(e) {
-      const { search } = this
+      let { $v, list, clearField, model: { search } } = this
+      
+      $v.$touch()
+      if($v.$invalid) return
       if(e === 'click') {
-        this.setList(search)
+        if(list === search) return
+        clearField()
       }
       if(e.key === 'Enter') {
-        this.setList(search)
+        if(list === search) return
+        clearField()
+      }
+    },
+
+    clearField() {
+      const { setList, $v, model } = this
+
+      $v.$reset()
+      setList(model.search)
+      model.search = ''
+    },
+
+    headerTitle (value) {
+      
+      const titleValue = {
+        '/': 'Vou deter o Lord Sith com:',
+        '/detalhes': 'Darth Vader foi derrotado com:'
+      }
+      return this.title = titleValue[value]
+    }
+  },
+
+  watch: {
+    '$route.path': function() {
+      const { $v, headerTitle } = this
+
+      $v.$reset()
+      headerTitle(this.$route.path)
+    }
+  },
+
+  validations () {
+    return {
+      model: {
+        search: {
+          required
+        }
       }
     }
   }
@@ -46,11 +110,10 @@ export default {
     position: fixed;
     display: flex;
     align-items: center;
-    padding: 0 220px;
+    padding: 20px 220px;
     width: 100%;
     background-color: #730000;
-    height: 80px;
-    z-index: 9;
+    z-index: 99;
   }
   header .header-content {
     display: flex ;
@@ -64,18 +127,30 @@ export default {
     color: #fff;
     font-weight: 800;
   }
+  header .header-content .details-message {
+    width: 100%;
+    text-align: center;
+  }
   .ui.icon.input>i.icon {
     cursor: pointer;
   }
   .ui.icon.input>i.icon:not(.link) {
     pointer-events: initial;
   }
+  header .header-content .ui {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  header .header-content .ui .is-invalid {
+    border: 2px solid #bdb81d;
+  }
 
   /* responsive */
 
   @media(max-width: 1200px) {
     header {
-      padding: 50px 0;
+      padding: 20px 0;
     }
     header .header-content {
       display: flex;
