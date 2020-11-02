@@ -7,5 +7,5 @@ services:
       - .:/app
     working_dir: /app
     ports:
-      - "5000:5000"
-    command: ['yarn', 'dev']
+      - "8080:8080"
+    command: npm run dev
