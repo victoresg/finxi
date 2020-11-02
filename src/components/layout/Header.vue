@@ -1,8 +1,13 @@
 <template>
   <header>
     <div class="header-content container">
-      <span v-if="$route.path === '/'">Vou deter o Lord Sith com:</span>
-      <span class="details-message" v-else>Darth Vader foi derrotado com:</span>
+      <span 
+        :class="$route.path === '/detalhes' 
+          ? 'details-message' 
+          : '' "
+      >
+        {{ title }}
+      </span>
       <div v-if="$route.path === '/'" class="ui icon input">
         <input
           type="text"
@@ -32,6 +37,7 @@ export default {
   },
 
   data: () => ({
+    title: 'Vou deter o Lord Sith com:',
     model: {
       search: ''
     }
@@ -65,6 +71,21 @@ export default {
       $v.$reset()
       setList(model.search)
       model.search = ''
+    },
+
+    headerTitle (value) {
+      
+      const titleValue = {
+        '/': 'Vou deter o Lord Sith com:',
+        '/detalhes': 'Darth Vader foi derrotado com:'
+      }
+      return this.title = titleValue[value]
+    }
+  },
+
+  watch: {
+    '$route.path': function() {
+      this.headerTitle(this.$route.path)
     }
   },
 

@@ -1,12 +1,7 @@
 <template>
   <main class="container">
     <div class="details">
-      <div class="header-details" @click="goTo()">
-        <div class="pointer">
-          <img src='../../assets/left-arrow.png' width="30">
-          <span>Início</span>
-        </div>
-      </div>
+      <BackView />
       <div class="card">
         <h1>{{ detailsGiphys.title }}</h1>
         <div class="content-details">
@@ -34,9 +29,14 @@
 <script>
 import { getGiphysById } from '@/services/giphy'
 import { formatDate, formatHours } from '@/helpers/date'
+import BackView from '@/components/helpers/BackView'
 
 export default {
   name: 'Details',
+
+  components: {
+    BackView
+  },
 
   data: () => ({
     detailsGiphys: {},
