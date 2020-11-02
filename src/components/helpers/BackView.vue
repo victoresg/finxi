@@ -11,7 +11,7 @@
 
 export default {
   name: 'BackView',
-  
+
   methods: {
     goTo() {
       const { $router } = this
@@ -28,10 +28,7 @@ export default {
     margin: 10px 0;
   }
   .back-view .pointer {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    display: inline-block;
     cursor: pointer;
-    max-width: 10%;
   }
 </style>
