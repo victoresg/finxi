@@ -9,6 +9,7 @@ import formErrors from '@/helpers/formErrors'
 
 export default {
   name: 'Alert',
+  
   props: {
     v: {
       type: Object,
@@ -16,14 +17,11 @@ export default {
       default: () => ({})
     }
   },
+
   computed: {
     currentError () {
       const { v } = this
       return formErrors(v)
-    },
-    hasError () {
-      const { currentError } = this
-      return !!currentError
     }
   }
 }
