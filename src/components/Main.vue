@@ -12,6 +12,7 @@ import Footer from './layout/Footer.vue'
 
 export default {
   name: 'Main',
+  
   components: {
     Header,
     Footer

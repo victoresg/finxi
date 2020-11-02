@@ -9,6 +9,7 @@ import formErrors from '@/helpers/formErrors'
 
 export default {
   name: 'Alert',
+  
   props: {
     v: {
       type: Object,
@@ -16,28 +17,33 @@ export default {
       default: () => ({})
     }
   },
+
   computed: {
     currentError () {
       const { v } = this
+
       return formErrors(v)
-    },
-    hasError () {
-      const { currentError } = this
-      return !!currentError
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="css">
   .span-component {
-    position: relative;
     font-size: 12px;
-    span {
-      position: absolute;
+    color: #bdb81d;
+    width: 100%;
+  }
+  .span-component span {
+    position: absolute;
+  }
+
+  /* responsivo */
+
+  @media(max-width: 1200px) {
+    .span-component span {
+      white-space: nowrap;
       left: 0;
-      color: #ff0000b5;
-      top: -2px;
     }
   }
 </style>

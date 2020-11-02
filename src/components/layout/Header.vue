@@ -1,92 +1,167 @@
 <template>
   <header>
-    <Modal :show="showModal" @close="closeModal" />
-    <div class="header-content">
-      <span class="mr-4 mr-md-0">
-        <router-link to="/">
-          HOME
-        </router-link>
+    <div class="header-content container">
+      <span 
+        :class="$route.path === '/detalhes' 
+          ? 'details-message' 
+          : '' "
+      >
+        {{ title }}
       </span>
-      <button @click="setModal" class="header-content-btn mr-4 mr-md-0 p-md-2">NEW SMARTLIST</button>
-      <button @click="redirect" class="header-content-btn p-md-2">     
-        <router-link to="/notes">
-          NOTES
-        </router-link>
-      </button>
+      <div v-if="$route.path === '/'">
+        <div class="ui icon input">
+          <input
+            type="text"
+            placeholder="Pesquisar..."
+            :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
+            v-model="model.search"
+            @keypress="searchGiphy($event)"
+          >
+          <Alert :v="$v.model.search" />
+          <i class="search icon" @click="searchGiphy('click')"></i>
+        </div>
+      </div>
     </div>
   </header> 
 </template>
 
 <script>
-import Modal from '@/components/helpers/Modal'
+import { required } from 'vuelidate/lib/validators'
+import { mapActions, mapState } from 'vuex'
+import Alert from '@/components/helpers/Alert'
 
 export default {
   name: 'Header',
+
   components: {
-    Modal
+    Alert
   },
+
   data: () => ({
-    showModal: false,
-    selected: 't1',
-    items: [
-      { title: 'COMPANY DATA', name: 't1' },
-      { title: 'COMPANY TABLE', name: 't2' },
-      { title: 'COMPANY PAGE', name: 't3' }
-    ]
+    title: 'Vou deter o Lord Sith com:',
+    model: {
+      search: ''
+    }
   }),
+
+  computed: {
+    ...mapState(['list'])
+  },
+
   methods: {
-    setModal () {
-      this.showModal = !this.showModal
+    ...mapActions(['setList']),
+
+    searchGiphy(e) {
+      let { $v, list, clearField, model: { search } } = this
+      
+      $v.$touch()
+      if($v.$invalid) return
+      if(e === 'click') {
+        if(list === search) return
+        clearField()
+      }
+      if(e.key === 'Enter') {
+        if(list === search) return
+        clearField()
+      }
     },
-    closeModal () {
-      this.showModal = !this.showModal
+
+    clearField() {
+      const { setList, $v, model } = this
+
+      $v.$reset()
+      setList(model.search)
+      model.search = ''
     },
-    redirect () {
-      this.$router.push('/notes')
+
+    headerTitle (value) {
+      
+      const titleValue = {
+        '/': 'Vou deter o Lord Sith com:',
+        '/detalhes': 'Darth Vader foi derrotado com:'
+      }
+      return this.title = titleValue[value]
+    }
+  },
+
+  watch: {
+    '$route.path': function() {
+      const { $v, headerTitle } = this
+
+      $v.$reset()
+      headerTitle(this.$route.path)
+    }
+  },
+
+  validations () {
+    return {
+      model: {
+        search: {
+          required
+        }
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   header {
+    position: fixed;
     display: flex;
     align-items: center;
-    padding: 0 220px;
+    padding: 20px 220px;
     width: 100%;
-    background-color: #42b983;
-    height: 80px;
-    .header-content {
-      display: flex ;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      &-btn {
-        background-color: #42b983;
-        border-radius: 5px;
-        border: none;
-        color: #ffff; 
-        outline-style: none;
-        cursor: pointer;
-        &:active {
-          box-shadow: inset 0 0 1em #1d21249e, 0 0 1em #1d21243d;
-        }
-      }
-    }
-    a {
-      color: #ffff;
-    }
+    background-color: #730000;
+    z-index: 99;
   }
-  @media(max-width: 768px) {
-    .header {
-      img {
-        width: 150px;
-      }
-      font-size: 12px;
-      button {
-        background-color: transparent;
-        white-space: nowrap;
-      }
+  header .header-content {
+    display: flex ;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  header .header-content span {
+    text-shadow: 2px 2px #00000030;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 800;
+  }
+  header .header-content .details-message {
+    width: 100%;
+    text-align: center;
+  }
+  .ui.icon.input>i.icon {
+    cursor: pointer;
+  }
+  .ui.icon.input>i.icon:not(.link) {
+    pointer-events: initial;
+  }
+  header .header-content .ui {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  header .header-content .ui .is-invalid {
+    border: 2px solid #bdb81d;
+  }
+
+  /* responsive */
+
+  @media(max-width: 1200px) {
+    header {
+      padding: 20px 0;
+    }
+    header .header-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header .header-content span {
+      font-size: 15px;
+      margin-bottom: 5px;
     }
   }
 </style>

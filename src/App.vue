@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <Main />
   </div>
 </template>
@@ -12,6 +11,7 @@ import Main from './components/Main.vue'
 
 export default {
   name: 'app',
+  
   components: {
     Main
   }
@@ -19,13 +19,28 @@ export default {
 </script>
 
 <style>
-* { outline: none !important; }
-*,
-*:before,
-*:after {
+  body {
+    background-image: url("assets/darth-vader.jpg");
+    background-attachment: fixed;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgb(0 0 0 / 73%);
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  * { outline: none !important; }
+  *,
+  *:before,
+  *:after {
     box-sizing: border-box;
     margin: 0;
     outline: none !important;
     -webkit-tap-highlight-color: transparent;
-}
+  }
 </style>

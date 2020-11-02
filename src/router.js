@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Notes from './views/Notes.vue'
-import Content from '@/components/layout/Content'
+import Home from './views/home/Home'
+import Details from './views/details/Details'
 
 Vue.use (Router)
 
 export default new Router ({
-    mode: 'history',
-    routes: [
-      {
-        path: '/notes',
-        name: 'notes',
-        component: Notes
-      },
-      {
-        path: '/',
-        name: 'Content',
-        component: Content
-      }
-    ]
-  })
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/detalhes',
+      name: 'Details',
+      component: Details
+    }
+  ]
+})
