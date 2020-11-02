@@ -1,4 +1,4 @@
-# intricately
+# finxi
 
 ## Project setup
 ```
