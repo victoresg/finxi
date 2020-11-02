@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <div class="home">
+    <div v-if="forceReload" class="home">
       <div v-if="items.length > 1" class="ui stackable four column grid">
         <div class="column" v-for="({ id, show, images: { downsized_large: { url } } }, index) in items" :key="index">
           <div class="card" @click="goTo(id)">
@@ -36,7 +36,8 @@ export default {
 
   data: () => ({
     items: [],
-    notFound: false
+    notFound: false,
+    forceReload: true
   }),
 
   created() {
@@ -50,6 +51,7 @@ export default {
   methods: {
     async fetchGiphys() {
       const { $loading, list } = this
+      this.forceReload = false
       const loader = $loading.show()
       try {
         const { data } = await getFooGiphys(list)
@@ -59,6 +61,7 @@ export default {
         // console.log(error)
       } finally {
         loader.hide()
+        this.forceReload = true
       }
     },
 
