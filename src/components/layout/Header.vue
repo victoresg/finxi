@@ -6,7 +6,7 @@
       <div v-if="$route.path === '/'" class="ui icon input">
         <input
           type="text"
-          placeholder="Pesquisa..."
+          placeholder="Pesquisar..."
           :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
           v-model="model.search"
           @keypress="searchGiphy($event)"

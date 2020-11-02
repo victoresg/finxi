@@ -7,21 +7,23 @@
           <span>Início</span>
         </div>
       </div>
-      <h1>{{ detailsGiphys.title }}</h1>
-      <div class="content-details">
-        <img :src='giphyImage' width="300">
-        <div class="content-info">
-          Nome do usuário: {{ detailsGiphys.username ? detailsGiphys.username : empityField}}
-          <div class="import-datetime">
-            <span class="date">Data: {{ formatDate(detailsGiphys.import_datetime) }}</span>
-            <span class="time">Hora: {{ formatHours(detailsGiphys.import_datetime) }}</span>
-          </div>
-          <div class="content-link">
-            Achou maneiro? 
-            <a :href="detailsGiphys.url" target="_blank">
-              clique aqui
-            </a>
-            para ver mais giphys {{ extractGiphyName(detailsGiphys.title) }}.
+      <div class="card">
+        <h1>{{ detailsGiphys.title }}</h1>
+        <div class="content-details">
+          <img :src='giphyImage' width="300">
+          <div class="content-info">
+            Nome do usuário: {{ detailsGiphys.username ? detailsGiphys.username : empityField}}
+            <div class="import-datetime">
+              <span class="date">Data: {{ formatDate(detailsGiphys.import_datetime) }}</span>
+              <span class="time">Hora: {{ formatHours(detailsGiphys.import_datetime) }}</span>
+            </div>
+            <div class="content-link">
+              Achou maneiro? 
+              <a :href="detailsGiphys.url" target="_blank">
+                clique aqui
+              </a>
+              para ver mais giphys {{ extractGiphyName(detailsGiphys.title) }}.
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +52,7 @@ export default {
   methods: {
     async getDetailsGiphy(id) {
       const { $loading } = this
-      
+
       const loader = $loading.show()
       try {
         const { data } = await getGiphysById(id)
@@ -98,6 +100,15 @@ export default {
     flex-direction: column;
     padding: 150px 0;
     font-size: 20px;
+  }
+  .details .card {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0000005c;
+    padding: 20px;
   }
   .details .header-details {
     width: 100%;
