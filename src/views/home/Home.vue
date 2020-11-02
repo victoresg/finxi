@@ -51,6 +51,7 @@ export default {
   methods: {
     async fetchGiphys() {
       const { $loading, list } = this
+
       this.forceReload = false
       const loader = $loading.show()
       try {

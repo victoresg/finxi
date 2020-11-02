@@ -50,6 +50,7 @@ export default {
   methods: {
     async getDetailsGiphy(id) {
       const { $loading } = this
+      
       const loader = $loading.show()
       try {
         const { data } = await getGiphysById(id)

@@ -7,12 +7,12 @@
         <input
           type="text"
           placeholder="Pesquisa..."
-          :class="$v.search.$dirty && $v.search.$invalid ? 'is-invalid' : ''"
-          v-model="search"
+          :class="$v.model.search.$dirty && $v.model.search.$invalid ? 'is-invalid' : ''"
+          v-model="model.search"
           @keypress="searchGiphy($event)"
-          @focusout="$v.search.$touch()"
+          @focusout="$v.model.search.$touch()"
         >
-        <Alert :v="$v.search" />
+        <Alert :v="$v.model.search" />
         <i class="search icon" @click="searchGiphy('click')"></i>
       </div>
     </div>
@@ -21,7 +21,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Alert from '@/components/helpers/Alert'
 
 export default {
@@ -32,28 +32,48 @@ export default {
   },
 
   data: () => ({
-    search: ''
+    model: {
+      search: ''
+    }
   }),
+
+  computed: {
+    ...mapState(['list'])
+  },
 
   methods: {
     ...mapActions(['setList']),
 
     searchGiphy(e) {
-      if (this.$v.$invalid) return
-      const { search } = this
+      let { $v, list, clearField, model: { search } } = this
+      
+      $v.$touch()
+      if($v.$invalid) return
       if(e === 'click') {
-        this.setList(search)
+        if(list === search) return
+        clearField()
       }
       if(e.key === 'Enter') {
-        this.setList(search)
+        if(list === search) return
+        clearField()
       }
+    },
+
+    clearField() {
+      const { setList, $v, model } = this
+
+      $v.$reset()
+      setList(model.search)
+      model.search = ''
     }
   },
 
   validations () {
     return {
-      search: {
-        required
+      model: {
+        search: {
+          required
+        }
       }
     }
   }

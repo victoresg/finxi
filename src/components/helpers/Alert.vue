@@ -21,6 +21,7 @@ export default {
   computed: {
     currentError () {
       const { v } = this
+      
       return formErrors(v)
     }
   }
