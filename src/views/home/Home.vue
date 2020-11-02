@@ -13,7 +13,7 @@
             <img
               v-else
               :src='url'
-              @error="hideImgError(index)"
+              @error="hideImgError()"
             >
           </div>
         </div>
@@ -69,7 +69,7 @@ export default {
     },
 
     goTo(id) {
-      const { $router, $v } = this
+      const { $router } = this
       
       $router.push({
         name: 'Details',
