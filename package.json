@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
+    "serve": "docker-compose up",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -12,9 +13,9 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.18.1",
     "core-js": "^2.6.5",
+    "fomantic-ui": "^2.8.7",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
-    "semantic-ui": "^2.4.2",
     "v-money": "^0.8.1",
     "vue": "^2.6.12",
     "vue-airbnb-style-datepicker": "^2.7.1",

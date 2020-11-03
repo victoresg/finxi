@@ -1,11 +1,11 @@
 version: '3.7'
 
 services:
-  app:
-    build: .
-    volumes:
-      - .:/app
-    working_dir: /app
-    ports: 
-      - 8080:8080
-    command: ['yarn', 'serve']
+
+  my-app-prod:
+    container_name: great_driscolls
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
