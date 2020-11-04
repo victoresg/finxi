@@ -5,15 +5,15 @@
         <div class="column" v-for="({ id, show, images: { downsized_large: { url } } }, index) in items" :key="index">
           <div class="card" @click="goTo(id)">
             <img
-              v-if="notFound"
-              class="not-found"
-              src='../../assets/not-found.png' 
-              width="150"
+              v-if="show"
+              :src='url'
+              @error="hideImgError(index)"
             >
             <img
               v-else
-              :src='url'
-              @error="hideImgError()"
+              class="not-found"
+              src='../../assets/not-found.png' 
+              width="150"
             >
           </div>
         </div>
@@ -36,7 +36,6 @@ export default {
 
   data: () => ({
     items: [],
-    notFound: false,
     forceReload: true
   }),
 
@@ -58,7 +57,7 @@ export default {
       const loader = $loading.show()
       try {
         const { data } = await getFooGiphys(list)
-        this.items = data
+        this.items = data.map(e => ({ ...e, show: true }))
         loader.hide()
       } catch(error) {
         // console.log(error)
@@ -77,8 +76,8 @@ export default {
       })
     },
 
-    hideImgError () {
-      this.notFound = true
+    hideImgError(index) {
+      this.items[index].show = false
     }
   },
 
